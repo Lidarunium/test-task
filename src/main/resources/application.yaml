@@ -33,7 +33,7 @@ spring:
 custom-user-details:
   username: ${USER_NAME:admin}
   password: ${PASSWORD:admin}
-  email: ${EMAIL:a.nuradil.m@gmail.com}
+  email: ${EMAIL}
 
 springdoc:
   swagger-ui:

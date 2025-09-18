@@ -10,6 +10,7 @@ services:
     environment:
       - USERNAME=admin
       - PASSWORD=admin
+      - EMAIL=a.nuradil.m@gmail.com
       - H2_USERNAME=admin
       - H2_PASSWORD=admin
       - SPRING_REDIS_HOST=redis
