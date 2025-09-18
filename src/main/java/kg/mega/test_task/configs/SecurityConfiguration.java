@@ -26,13 +26,14 @@ public class SecurityConfiguration {
 
     private final CustomUserDetailsProperties userDetailsProperties;
 
-    private final String[] WHITE_LIST = {"/h2-console/**", "/swagger-ui/**, /v3/api-docs/**"};
+    private final String[] WHITE_LIST = {"/h2-console/**", "/swagger-ui/**", "/v3/api-docs/**"};
 
     @Bean
     public SecurityFilterChain securityWebFilterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(csrf -> csrf
                         .ignoringRequestMatchers(WHITE_LIST)
+                        .ignoringRequestMatchers("/api/**")
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 )
                 .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
@@ -46,9 +47,9 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public UserDetailsService userDetailsService(PasswordEncoder encoder) {
+    public UserDetailsService userDetailsService() {
         UserDetails user = User.withUsername(userDetailsProperties.getUsername())
-                .password(encoder.encode(userDetailsProperties.getPassword()))
+                .password(passwordEncoder().encode(userDetailsProperties.getPassword()))
                 .build();
         return new InMemoryUserDetailsManager(user);
     }

@@ -25,13 +25,14 @@ public class TaskService {
     private final TaskMapper mapper;
 
 
-    @Cacheable
+    @Cacheable(key = "'allTasks'")
     public List<TaskResponse> getTasks() {
         return taskRepository.findAll().stream()
                 .map(mapper::toResponse)
                 .collect(Collectors.toList());
     }
 
+    @Cacheable(key = "#id")
     public TaskResponse getTask(Long id) {
         TaskEntity entity = taskRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Task not found"));
