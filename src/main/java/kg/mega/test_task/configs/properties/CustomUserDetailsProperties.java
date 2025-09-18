@@ -19,4 +19,7 @@ public class CustomUserDetailsProperties {
 
     @NotBlank(message = "CustomUserDetailsProperties::password is cannot be blank")
     private String password;
+
+    @NotBlank(message = "CustomUserDetailsProperties::email is cannot be blank")
+    private String email;
 }

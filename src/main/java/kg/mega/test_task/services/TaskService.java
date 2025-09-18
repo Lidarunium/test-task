@@ -22,7 +22,10 @@ import java.util.stream.Collectors;
 public class TaskService {
 
     private final TaskRepository taskRepository;
+
     private final TaskMapper mapper;
+
+    private final EmailService emailService;
 
 
     @Cacheable(key = "'allTasks'")
@@ -42,7 +45,9 @@ public class TaskService {
     @CacheEvict(allEntries = true)
     public TaskResponse create(TaskCreateRequest request) {
         TaskEntity entity = mapper.toEntity(request);
-        return mapper.toResponse(taskRepository.save(entity));
+        TaskEntity result = taskRepository.save(entity);
+        emailService.sendTaskEmail(result.getDescription());
+        return mapper.toResponse(result);
     }
 
     @CacheEvict(allEntries = true)
