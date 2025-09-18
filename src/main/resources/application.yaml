@@ -1,0 +1,30 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:test_task
+    username: ${H2_USERNAME:admin}
+    password: ${H2_PASSWORD:admin}
+    driver-class-name: org.h2.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  cache:
+    type: redis
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+custom-user-details:
+  username: ${USER_NAME:admin}
+  password: ${PASSWORD:admin}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui
+  api-docs:
+    path: /v3/api-docs
